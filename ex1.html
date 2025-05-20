@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jquery example</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#msg").text("jQuery 메세지");
+      });
+    </script>
+    <!-- Vue cdn -->
+    <script src="https://unpkg.com/vue@3"></script>
+    <script defer>
+      document.addEventListener("DOMContentLoaded", function () {
+        let hi = { msg: "뷰 메세지 : HI" }; // Model
+        // viewModel
+        // proxy 객체로서 반응성을 제공하는 기본 요소. moldel 객체 값을 변경하면 화면이 자동 갱신됨
+        Vue.createApp({
+          // vue 객체 생성
+          data() {
+            // vue 옵션 객체
+            return hi;
+          },
+        }).mount("#app1");
+        // viewModel end
+      });
+    </script>
+    <!-- 별도 작성한 js 문서 호출 -->
+    <!-- script 태그의 defer속성은 js 처리 중 DOM 파싱이 계속 진행되도록 함 -->
+    <script src="ex1.js" defer></script>
+  </head>
+  <body>
+    jQuery 출력 결과 : <span id="msg"></span>
+    <hr />
+    vue 출력 결과 : <span id="app1">{{msg}}</span>
+    <!-- view -->
+
+    <hr />
+    vue 출력 결과 2:
+    <div id="app2">
+      <span>
+        {{message1}}&nbsp;&nbsp;{{message2}}&nbsp;&nbsp;{{message3}}
+        <!-- {{}} 내부에서 javascript 실행-->
+      </span>
+      <br />
+      <button @click="updateMessage">메세지 갱신</button>
+    </div>
+  </body>
+</html>
