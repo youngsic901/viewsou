@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="ex7.js" defer></script>
+</head>
+<body>
+    조건부 렌더링을 위한 v-if, v-show 연습
+    <div id="app">
+        <span v-show="season">
+            <p>가벼운 옷입기 좋음 show</p>
+        </span>
+        <p v-if="season">가벼운 옷 입기 좋음 if</p>
+        <button v-on:click="season = !season">season 결과 변경</button>
+
+        <!-- v-if를 갖는 template 활용 조건부 그룹 : template는 렌더링에 참여X, 해당 태그의 하위 태그에는 동작이 전파 -->
+        <template v-if="season">
+            <div>반팔 옷 입는 계절</div>
+            <div>해충은 조심</div>
+        </template>
+        <template v-else>
+            <div>긴옷 입는 계절</div>
+            <div>산불 조심</div>
+        </template>
+        <br/> <!-- 체크박스의 상태에 따른 조건부 렌더링 -->
+        <label>
+            체크 표시 확인
+            <input type="checkbox" v-model="myVisible">
+        </label>
+        <p v-if="myVisible">Check ON</p>
+        <p v-else="myVisible">Check OFF</p>
+        <hr/>
+        <!-- count 값에 따라 다른 내용을 렌더링 -->
+        <p v-if="count === 10">{{count}}번 클릭</p>
+        <p v-else-if="count >= 1">현재 클릭 수 : {{count}}</p>
+        <p v-else>버튼을 클릭하세요</p>
+        <button v-bind:disabled="count === 10" v-on:click="addFunc">숫자 늘리기</button>
+        <button :disabled="count === 10" @click="addFunc">숫자 늘리기2</button>
+    </div>
+</body>
+</html>

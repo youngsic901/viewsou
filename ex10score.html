@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script defer src="ex10score.js"></script>
+    <link rel="stylesheet" href="ex10.css">
+</head>
+<body>
+    <div id="app">
+        <h1>성적 관리</h1>
+        <label for="name">이름 : </label>
+        <input type="text" :value="name" @input="name = $event.target.value"><br>
+        <label for="java">자바 : </label>
+        <input type="number" v-model="java" min="0" max="100"><br>
+        <label for="react">리액트 : </label>
+        <input type="number" v-model="react" min="0" max="100"><br>
+        <label for="vue">뷰 : </label>
+        <input type="number" v-model="vue" min="0" max="100"><br>
+        <br>
+        <button @click="inputStudent">확인</button>
+        <br>
+        <h1>입력 결과</h1>
+        <!-- <div v-show="false">{{total = 0}}</div> -->
+        <!-- <div v-show="false" v-for="student in students">{{total += student.java + student.react + student.vue}}</div> -->
+        <ul>
+            <li v-for="student in students">
+                {{student.name}} : {{student.java}}, {{student.react}}, {{student.vue}} 총점: {{student.java + student.react + student.vue}}
+            </li>
+        </ul>
+        <h1>전체 통계</h1>
+        인원수 : {{students.length}} 전체 총점 : {{total}}
+    </div>
+</body>
+</html>
