@@ -6,6 +6,53 @@
     <title>Document</title>
     <script src="https://unpkg.com/vue@3"></script>
     <script src="./ex5.js" defer></script>
+    <script defer>
+        document.addEventListener('DOMContentLoaded', function() {
+            const app2 = Vue.createApp({
+                data() {
+                    return{
+                        message:"안녕 뷰 이벤트 연습중", // 부모 컴포넌트에서 자식 컴포넌트로 전달할 메세지
+                    }
+                }
+            });
+            app2.component('child-component',{
+                props:['propsdata'], 
+                // 뷰 템플릿에서 컴포넌트의 속성값으로 명시해 준 이름을 props키 값을 통해 배열로 매칭
+                // 부모로부터 props라는 프로퍼티를 받음. 주의 : 'propsdata', 'props_data' 가능, 'propsData'불가능
+                // Vue 컴포넌트 간 통신 방식 : props와 $emit이 기본적 통신도구로 활용됨 props는 단방향
+                template: '<span>{{propsdata}}</span>',
+            });
+            app2.mount("#app2");
+        });
+    </script>
+    <script defer>
+        document.addEventListener('DOMContentLoaded', function() {
+            const app3 = Vue.createApp({
+                data() {
+                    return{
+                        msg:"",
+                    }
+                },
+                methods:{
+                    printText(){
+                        const logMessage = "이벤트 수신 성공";
+                        console.log(logMessage);
+                        this.msg = logMessage;
+                    }
+                }
+            });
+            app3.component('child-component',{  // 하위 컴포넌트
+                template: '<button @click="showLog">클릭</button>',
+                methods:{
+                    showLog(){
+                        this.$emit('show-log'); // 보내는 컴포넌트에서는 $emit() 사용
+                    }
+                }
+            });
+            app3.mount("#app3");
+        });
+    </script>
+
 </head>
 <body>
     <h1>이벤트의 이해</h1>
@@ -15,6 +62,25 @@
         <br/>
         주사위 수 + 10 : {{number2}}
         <button @click="rollDiceEvent2(10)">주사위 던지기</button>
+        <br/><br/>
+        숫자 증가 : {{count}}
+        <br/>
+        숫자 증가 : {{count * 2}}
+        <br>
+        숫자 js 조건문 : {{count % 2 == 0 ? "짝수":"홀수"}}
+        <br/>
+        <button @click="count += 1">클릭으로 숫자 증가</button>
+        <button @click="count++">클릭으로 숫자 증가2</button>
+    </div>
+    <hr/>
+    <div id="app2">
+        message:<child-component :propsdata="message"></child-component>
+    </div>
+    <hr/>
+    <div id="app3">
+        <!-- 자식 컴포넌트에서 이벤트를 발생시키고, 부모 컴포넌트에서 감지하여 메소드를 호출 -->
+        message:<child-component @show-log="printText"></child-component>
+        <h2>{{msg}}</h2>
     </div>
 </body>
 </html>
