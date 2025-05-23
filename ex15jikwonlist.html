@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script defer src="ex15jikwonlist.js"></script>
+    <link rel="stylesheet" href="ex15jikwonlist.css">
+</head>
+<body>
+    <div id="app">
+        <label for="jikwonno">사번 : </label>
+        <input type="number" id="jikwonno" v-model="jikwonno"><br>
+        <label for="jikwonname">이름 : </label>
+        <input type="text" id="jikwonname" :value="jikwonname" @input="jikwonname = $event.target.value"><br>
+        <button @click="login">로그인</button>
+
+        <div id="sucessBody" v-if="isLogin">
+            <label for="busername">부서명 : </label>
+            <select id="busername" v-model="busername" @change="fetchJikwons">
+                <option>전체 출력</option>
+                <option value="총무부">총무부</option>
+                <option value="영업부">영업부</option>
+                <option value="전산부">전산부</option>
+                <option value="관리부">관리부</option>
+            </select>
+            <br>
+            <div>
+                <label for="desc">내림차순</label>
+                <input type="radio" value="desc" id="desc" name="array" v-model="array" @change="fetchJikwons">
+            </div>
+            <div>
+                <label for="asc">오름차순</label>
+                <input type="radio" value="asc" id="asc" name="array" v-model="array" @change="fetchJikwons"    >
+            </div>
+            <br><br>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>사번</th><th>이름</th><th>직급</th><th>연봉</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="jikwon in jikwons" :key="jikwons.jikwonno">
+                        <td>{{jikwon.jikwonno}}</td>
+                        <td>{{jikwon.jikwonname}}</td>
+                        <td>{{jikwon.jikwonjik}}</td>
+                        <td>{{jikwon.jikwonpay}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div v-if="showModal" class="modal-overlay">
+            <div class="modal">
+                <p>로그인 정보를 확인해 주세요</p>
+                <button @click="showModal = false">닫기</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

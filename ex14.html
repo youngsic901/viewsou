@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://unpkg.com/vue-router@4"></script>
+    <script src="ex14_route.js" defer type="module"></script>
+    <link rel="stylesheet" href="ex14.css">
+</head>
+<body>
+    <div id="app">
+        <h3>
+            <router-link to="/">메인화면</router-link>| 
+            <router-link to="/library">도서관정보</router-link>| 
+            <router-link to="/weather">날씨정보</router-link>
+        </h3>
+        
+        <router-view></router-view>
+    </div>
+</body>
+</html>

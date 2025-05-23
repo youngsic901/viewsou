@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.31/dist/vue.global.prod.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script defer src="ex11_chart.js"></script>
+    <script defer src="ex11_vue.js"></script>
+</head>
+<body>
+    <h2>구글 지원 원 그래프 출력</h2>
+    메뉴 선택 결과 : <br>
+    <div id="chart_div" style="height: 500px;"></div>
+        
+    <div id="app">
+        <li v-for="(value, idx) in dataArray" :key="idx">
+            {{value[0]}} : {{value[1]}}
+            <button @click="addFunc(idx)">1 증가</button>&nbsp;
+            <button @click="subFunc(idx)">1 감소</button>&nbsp;
+        </li>
+    </div>
+</body>
+</html>
